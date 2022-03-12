@@ -27,6 +27,17 @@ const Gio = imports.gi.Gio;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
+/*
+ * Main.overview._overview._controls.layout_manager._stateAdjustment.value
+ * { 0: "hidden", 1: "workspaces", 2: "apps" }
+ *
+ * Main.overview.show()
+ * Main.overview.hide()
+ * Main.overview.toggle()
+ *
+ * Main.overview.showApps()
+ * Main.overview._overview._controls._toggleAppsPage()
+ */
 class ClickToCloseOverview {
 	enable() {
 		/* connections to undo when disabling go here */
@@ -39,10 +50,6 @@ class ClickToCloseOverview {
 		/* create new click action */
 		this._clickAaction = new Clutter.ClickAction();
 		const callback = this._clickAaction.connect('clicked', action => {
-			/* ignore non-primary clicks */
-			if (action.get_button() !== 1 && action.get_button() !== 0)
-				return;
-
 			/* ignore clicks when showing other app pages */
 			const appDisplay = Main.overview._overview._controls._appDisplay;
 			const showingPrevPage = appDisplay._prevPageIndicator.visible;
@@ -70,7 +77,12 @@ class ClickToCloseOverview {
 			if (actor.get_parent().get_parent() === thumbnailsBox)
 				return actor.get_parent().activate();
 
-			Main.overview.toggle();
+			/* check button */
+			if (action.get_button() == 1) {
+				Main.overview.toggle();
+			} else if (action.get_button() == 3) {
+				Main.overview._overview._controls._toggleAppsPage()
+			}
 		});
 		/* connect click action to the overview */
 		Main.overview._overview._controls.add_action(this._clickAaction);

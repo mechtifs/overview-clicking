@@ -1,11 +1,12 @@
 {
-  "name": "Click to close overview",
-  "description": "Close the overview by clicking empty space.",
-  "uuid": "click-to-close-overview@l3nn4rt.github.io",
+  "name": "Overview Clicking",
+  "description": "Close the overview or show up application grid by left/right clicking empty space. Forked from click-to-close-overview@l3nn4rt.github.io.",
+  "uuid": "overview-clicking@mechtifs",
   "shell-version": [
     "40",
-    "41"
+    "41",
+    "42"
   ],
-  "url": "https://github.com/l3nn4rt/click-to-close-overview",
-  "version": 5
+  "url": "https://github.com/mechtifs/overview-clicking",
+  "version": 1
 }
